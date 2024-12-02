@@ -22,7 +22,10 @@ func main() {
 	sortNumbers(leftNumbers)
 	sortNumbers(rightNumbers)
 	result := findDistance(leftNumbers, rightNumbers)
-	fmt.Println(result)
+	fmt.Printf("Total Distace: %d\n", result)
+	simScore := similarity(leftNumbers, rightNumbers)
+	fmt.Printf("Total Similarity Score: %d\n", simScore)
+
 }
 
 func readFile(filePath string) []string {
@@ -68,4 +71,27 @@ func findDistance(leftList, rightList []int) int {
 		totalDistance += currentDistance
 	}
 	return totalDistance
+}
+
+func frequency(value int, numbersList []int) int {
+	totalFrequency := 0
+
+	for _, number := range numbersList {
+		if number == value {
+			totalFrequency += 1
+		}
+	}
+	return totalFrequency
+}
+
+func similarity(leftNums, rightNums []int) int {
+	totalSimilarity := 0
+
+	for _, leftNum := range leftNums {
+		valueFrequency := frequency(leftNum, rightNums)
+		currentSimilarity := leftNum * valueFrequency
+		totalSimilarity += currentSimilarity
+	}
+
+	return totalSimilarity
 }
